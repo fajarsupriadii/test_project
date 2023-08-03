@@ -14,15 +14,15 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = production
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+# app.baseURL = 'localhost:8080'
 # If you have trouble with `.`, you could also use `_`.
-# app_baseURL = ''
+# app_baseURL = 'localhost:8080'
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
 
@@ -30,18 +30,18 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
+database.default.hostname = 'localhost'
+database.default.database = 'test_project'
+database.default.username = 'root'
+database.default.password = 
+database.default.DBDriver = 'MySQLi'
 # database.default.DBPrefix =
-# database.default.port = 3306
+database.default.port = 3306
 
 # database.tests.hostname = localhost
-# database.tests.database = ci4_test
+# database.tests.database = test_project
 # database.tests.username = root
-# database.tests.password = root
+# database.tests.password = 
 # database.tests.DBDriver = MySQLi
 # database.tests.DBPrefix =
 # database.tests.port = 3306
@@ -141,3 +141,8 @@
 #--------------------------------------------------------------------
 
 # curlrequest.shareOptions = true
+
+#--------------------------------------------------------------------
+# JWT
+#--------------------------------------------------------------------
+JWT_SECRET = 'jwt-secret-project'
