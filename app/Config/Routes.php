@@ -29,7 +29,23 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Order::index', ['filter' => 'auth']);
+
+$routes->group('auth', function ($routes) {
+    $routes->post('/', 'Auth::index');
+    $routes->get('login', 'Auth::login');
+    $routes->get('logout', 'Auth::logout');
+});
+
+$routes->group('order', function ($routes) {
+    $routes->get('/', 'Order::index');
+    $routes->get('get-data', 'Order::getData');
+});
+
+$routes->group('api', ['filter' => 'apiAuth', 'cors'], function ($routes) {
+    $routes->get('order', 'Api\Order::index');
+});
+$routes->post('api/auth', 'Api\Auth::index', ['filter' => 'cors']);
 
 /*
  * --------------------------------------------------------------------
