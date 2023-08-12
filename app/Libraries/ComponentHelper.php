@@ -159,8 +159,7 @@ class ComponentHelper
             'moduls.icon AS modul_icon',
             'menus.name AS menu_name',
             'menus.url AS menu_url',
-        ])
-        ->join('menus', 'menus.modul_id = moduls.id', 'left')
+        ])->join('menus', 'menus.modul_id = moduls.id', 'left')
         ->asArray()->findAll();
 
         if (!empty($data)) {
