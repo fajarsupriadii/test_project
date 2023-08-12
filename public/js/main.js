@@ -129,7 +129,11 @@ $(document).on('click', '.btn-search-datatable', ({ currentTarget }) => {
     var formWrapper = $(`#form-filter_${tableId}`);
     var table = `#${tableId}`;
     var tableElement = $(table).DataTable();
-    var url = `${$(currentTarget).data('table-url')}?${serializeFormToParam(formWrapper).substring(1)}`;
+    if ($(currentTarget).data('table-url').indexOf("?")) {
+        var url = `${$(currentTarget).data('table-url')}&${serializeFormToParam(formWrapper).substring(1)}`;
+    } else {
+        var url = `${$(currentTarget).data('table-url')}?${serializeFormToParam(formWrapper).substring(1)}`;
+    }
     tableElement.ajax.url(url);
     tableElement.ajax.reload();
 });

@@ -37,13 +37,23 @@ $routes->group('auth', function ($routes) {
     $routes->get('logout', 'Auth::logout');
 });
 
-$routes->group('order', function ($routes) {
+$routes->group('order', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Order::index');
     $routes->get('get-data', 'Order::getData');
 });
 
+$routes->group('information', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Information::index');
+    $routes->get('get-data', 'Information::getData');
+});
+
 $routes->group('api', ['filter' => 'apiAuth', 'cors'], function ($routes) {
     $routes->get('order', 'Api\Order::index');
+
+    $routes->group('information', function ($routes) {
+        $routes->get('/', 'Api\Information::index');
+        $routes->post('store', 'Api\Information::store');
+    });
 });
 $routes->post('api/auth', 'Api\Auth::index', ['filter' => 'cors']);
 
