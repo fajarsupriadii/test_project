@@ -27,7 +27,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <table id="table-<?= $data['code'] ?>" class="table table-bordered table-hover text-nowrap">
+                        <table id="table-<?= $data['code'] ?>" class="table table-bordered table-hover text-nowrap" style="width:100%;">
                             <thead>
                                 <tr>
                                     <th>No</th>

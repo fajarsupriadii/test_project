@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Libraries;
+use App\Models\ModulModel;
+use App\Models\MenuModel;
 
 class ComponentHelper 
 {
@@ -98,9 +100,9 @@ class ComponentHelper
                 if ($value) {
                     $model->like($key, $value, 'both', null, true);
                 }
-            }
-            $countFiltered = $model->countAllResults(false);
+            }            
         }
+        $countFiltered = $model->countAllResults(false);
 
         $data = $model->orderBy($orderBy, $orderType)
             ->limit($limit, $offset)
@@ -145,6 +147,40 @@ class ComponentHelper
             'data' => $results,
             'countFiltered' => $countFiltered,
         ];
+    }
+
+    public static function getMenu()
+    {
+        $results = [];
+
+        $data = (new ModulModel)->select([
+            'moduls.id AS id',
+            'moduls.name AS modul_name',
+            'moduls.icon AS modul_icon',
+            'menus.name AS menu_name',
+            'menus.url AS menu_url',
+        ])
+        ->join('menus', 'menus.modul_id = moduls.id', 'left')
+        ->asArray()->findAll();
+
+        if (!empty($data)) {
+            foreach ($data as $value) {
+                if (!isset($results[$value['modul_name']])) {
+                    $results[$value['modul_name']] = [
+                        'modul_name' => $value['modul_name'],
+                        'modul_icon' => $value['modul_icon'],
+                    ];
+                }
+                if ($value['menu_name']) {
+                    $results[$value['modul_name']]['menu'][] = [
+                        'name' => $value['menu_name'],
+                        'url' => $value['menu_url'],
+                    ];
+                }
+            }
+        }
+
+        return $results;
     }
 
 }

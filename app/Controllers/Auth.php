@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Libraries\ComponentHelper;
 use App\Models\UserVModel;
 use CodeIgniter\API\ResponseTrait;
 
@@ -25,10 +26,12 @@ class Auth extends BaseController
             return $this->respond(['message' => 'Invalid email or password.'], 422);
         }
 
+        $menu = ComponentHelper::getMenu();
         $sesData = [
             'user_id' => $model['user_id'],
             'name' => $model['employee_name'],
             'employee_id' => $model['employee_id'],
+            'menu' => $menu,
             'isLogin' => true,
         ];
         $session->set($sesData);
